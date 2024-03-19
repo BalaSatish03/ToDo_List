@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO DO LIST</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='mystyle.css') }}">   
+
+</head>
+<body>
+    <div class="center-box">
+    
+    <h1 align="center"><b>TO-DO-LIST</b></h1>
+    <form align="center" action="/add_task" method="POST">
+        <label>Enter the task</label>
+        <input type="text" id="input" name="my_task">
+        <button type="submit">Submit</button>
+    </form>
+    <ul id="res">
+        {% for task in tasks %}
+        <li id="task-{{ task.id }}">
+            <input type="checkbox"  onclick="toggleTask('{{ task.id }}')" {% if  task.completed %}checked{% endif %}>
+            
+
+            {{ task.content }}<!-- Display the task content -->
+
+            <button class="delete-button" onclick="removeTask('{{task.id}}',event)">x</button>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="center-button">
+    <form align="center" action="/logout" method="post">
+        <button class="button" type="submit"><h1>Logout</h1></button>
+    </form>
+</div>
+<script>
+   function removeTask(taskId,event) {
+    console.log('Removing task with ID:', taskId);
+    event.preventDefault();
+    fetch('/delete_task/'+ taskId, {
+        method: 'DELETE'
+    }).then(response => {
+        if (response.ok) {
+            document.getElementById('task-' + taskId).remove();
+        } 
+    });
+}
+function toggleTask(taskId) {
+    fetch('/toggle_task/' + taskId, {
+        method: 'PUT'
+    })
+}
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <form action="/submit" method="POST" onsubmit="return authenticate();">
+        <label>Enter the name:</label>
+        <input type="text" name="name" id="temp1"><br>
+        <label>Enter the email:</label>
+        <input type="email" name="email" id="temp2"><br>
+        <input type="submit" value="Submit">
+        
+        </form>
+        {% if is_invalid %}
+        <script>
+            alert('details alrready taken,please enter unique details');
+        </script>
+    {% endif %}
+    <script>
+        
+    function authenticate(){
+    var name=document.getElementById('temp1').value;
+    var email=document.getElementById('temp2').value;
+    if (name === '' || email === '') {
+        alert('Please enter both name and email.');
+        return false;
+    }
+    return true;
+}
+    </script>
+  
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f1f1f1;
+    }
+
+    .container {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    .error {
+        color: red;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Sign Up</h2>
+    <form id="signupForm" action="/submit" method="post" onsubmit="return validateForm()">
+        <input type="text" id="name" name="name" placeholder="Your Name" required>
+        <input type="email" id="email" name="email" placeholder="Your Email" required>
+        <input type="password" id="password" name="password" placeholder="Your Password" required>
+        <input type="submit" value="Sign Up">
+    </form>
+    {% if is_invalid %}
+        <script>
+            alert('details alrready taken,please enter unique details');
+        </script>
+    {% endif %}
+</div>
+
+<script>
+    function validateForm() {
+        var name = document.getElementById("name").value;
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,8}$/;
+
+        if (name.trim() == "") {
+            alert("Name field cannot be empty");
+            return false;
+        }
+
+        if (email.trim() == "") {
+            alert("Email field cannot be empty");
+            return false;
+        }
+
+        if (!passwordPattern.test(password)) {
+            alert("Password must be 6-8 characters long and contain both letters and digits");
+            return false;
+        }
+
+        return true;
+    }
+</script>
+
+</body>
+</html>
